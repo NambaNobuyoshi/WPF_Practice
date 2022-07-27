@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <!--スタイルシート-->
+    
+    <!--背景色-->
+    <SolidColorBrush x:Key="BackgroundBase" Color="White"/>
+    <SolidColorBrush x:Key="BackgroundHeader" Color="Yellow"/>
+    <SolidColorBrush x:Key="BackgroundFooter" Color="Black"/>
+    
+
+    <!--Grid start-->
+    <sys:Double x:Key="GridHeightMain">50</sys:Double>
+    <sys:Double x:Key="GridWidthMain">50</sys:Double>
+    <Style TargetType="Grid" x:Key="GridBase">
+        <Setter Property="Background" Value="{StaticResource BackgroundBase}"/>
+    </Style>
+    <Style TargetType="Grid" x:Key="GridMainHeader">
+        <Setter Property="Background" Value="{StaticResource BackgroundHeader}"/>
+        <Setter Property="Height" Value="{StaticResource GridHeightMain}"/>
+    </Style>
+    <Style TargetType="Grid" x:Key="GridMainFooter">
+        <Setter Property="Background" Value="{StaticResource BackgroundFooter}"/>
+        <Setter Property="Height" Value="{StaticResource GridHeightMain}"/>
+    </Style>
+    <!--Grid end  -->
+    
+    <!--Tab start-->
+    <Style x:Key="TabMain" TargetType="TabControl">
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style x:Key="TabItemMain" TargetType="TabItem">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <!--Tab end  -->
+    
+</ResourceDictionary>
