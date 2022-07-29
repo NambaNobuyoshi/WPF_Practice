@@ -41,8 +41,9 @@
             <!--メインページ-->
             <Grid Style="{StaticResource GridBase}">
                 <TabControl Style="{StaticResource TabMain}">
-                    <TabItem Style="{StaticResource TabItemMain}">
-                        
+                    <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownMemoStart}">
+                        <!--メモアプリ 開始画面-->
+                        <local:MemoStart/>
                     </TabItem>
                     <TabItem Style="{StaticResource TabItemMain}">
                         

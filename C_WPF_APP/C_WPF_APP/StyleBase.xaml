@@ -7,6 +7,8 @@
     <SolidColorBrush x:Key="BackgroundHeader" Color="Yellow"/>
     <SolidColorBrush x:Key="BackgroundFooter" Color="Black"/>
     
+    <!--文字サイズ-->
+    <sys:Double x:Key="FontSizeTitle">40</sys:Double>
 
     <!--Grid start-->
     <sys:Double x:Key="GridHeightMain">50</sys:Double>
@@ -33,5 +35,61 @@
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
     <!--Tab end  -->
+    
+    <!--TextBlock start-->
+    
+    <Style x:Key="TextBlockTitle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeTitle}"/>
+    </Style>
+    <!--TextBlock end  -->
+    
+    <!--角丸button start-->
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ButtonCornerRadius" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="Yellow"/>
+        <Setter Property="BorderBrush" Value="Aqua"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" CornerRadius="5" 
+                            Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          Content="{TemplateBinding Content}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="orange"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="white"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="orange"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="orange"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="white"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="gray"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="Gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--button end  -->
     
 </ResourceDictionary>
