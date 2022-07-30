@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:C_WPF_APP"
         mc:Ignorable="d"
         Closing="Window_Closing"
+        WindowState="Maximized"
         Title="MainWindow" Height="900" Width="1600">
     
     <!--バインディング先-->
@@ -41,12 +42,12 @@
             <!--メインページ-->
             <Grid Style="{StaticResource GridBase}">
                 <TabControl Style="{StaticResource TabMain}">
-                    <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownMemoStart}">
+                    <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownStartMemo}">
                         <!--メモアプリ 開始画面-->
                         <local:MemoStart/>
                     </TabItem>
-                    <TabItem Style="{StaticResource TabItemMain}">
-                        
+                    <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownNewMemo}">
+                        <local:MemoNew/>
                     </TabItem>
                 </TabControl>
             </Grid>

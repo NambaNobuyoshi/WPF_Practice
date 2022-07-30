@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="C_WPF_APP.MemoNew"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:C_WPF_APP"
+             mc:Ignorable="d" 
+             Width="1000" Height="600">
+
+    <!--<UserControl.DataContext>
+        <local:ViewModel/>
+    </UserControl.DataContext>-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleBase.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource GridBase}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="563*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Text="新規登録" Style="{StaticResource TextBlockTitle}" Margin="20,0,0,0"/>
+
+        <StackPanel Grid.Row="1" Margin="50,20,50,50">
+            <TextBlock Text="メモタイトル"/>
+            <TextBox/>
+            <TextBlock Text="内容"/>
+            <TextBox/>
+        </StackPanel>
+
+        <!--画面遷移用ボタン-->
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Command="{Binding ClickGoStartMemo}" Style="{StaticResource ButtonCornerRadius}" Content="一覧に戻る" />
+            <Button Command="" Style="{StaticResource ButtonCornerRadius}" Content="保存" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -23,3 +23,5 @@ D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\ref\C_WPF_APP.dll
 D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\StyleBase.baml
 D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\MemoStart.g.cs
 D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\MemoStart.baml
+D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\MemoNew.g.cs
+D:\Visual studio\C_WPF_APP\C_WPF_APP\obj\Debug\net6.0-windows\MemoNew.baml

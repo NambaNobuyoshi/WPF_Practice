@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace C_WPF_APP.Model
 {
@@ -22,6 +23,7 @@ namespace C_WPF_APP.Model
         
         // ページの表示
         public bool IsShownMemoStart { get; set; }
+        public bool IsShownMemoNew { get; set; }
         
 
     }
@@ -93,6 +95,27 @@ namespace C_WPF_APP.Model
         public void OnPropertyChanged(string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
+
+    class Command : ICommand
+    {
+        private Action _action;
+        public event EventHandler? CanExecuteChanged;
+
+        public Command(Action action)
+        {
+            this._action = action;
+        }
+        
+        public bool CanExecute(object? parameter)
+        {
+            return _action != null;
+        }
+
+        public void Execute(object? parameter)
+        {
+            _action.Invoke();
         }
     }
 }

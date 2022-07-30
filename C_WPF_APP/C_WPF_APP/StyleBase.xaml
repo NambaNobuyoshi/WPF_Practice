@@ -49,6 +49,8 @@
     <!--TextBlock end  -->
     
     <!--角丸button start-->
+    <sys:Double x:Key="ButtonHeightCornerRadius">40</sys:Double>
+    <sys:Double x:Key="ButtonWidthCornerRadius">120</sys:Double>
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -63,6 +65,8 @@
         <Setter Property="Background" Value="Yellow"/>
         <Setter Property="BorderBrush" Value="Aqua"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Height" Value="{StaticResource ButtonHeightCornerRadius}"/>
+        <Setter Property="Width" Value="{StaticResource ButtonWidthCornerRadius}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
