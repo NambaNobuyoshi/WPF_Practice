@@ -20,6 +20,7 @@ namespace C_WPF_APP
         // 他クラスアクセス用
         private static readonly Model.Model s_model = new();
         private static readonly CommonMethod s_commonMethod = new();
+        private static readonly JsonMethod s_jsonMethod = new();
 
         // イベント変数
         private Command _clickGoNewMemo;
@@ -142,24 +143,27 @@ namespace C_WPF_APP
         //--------------------------------------------
 
         // メモ新規登録画面
+        /// <summary>
+        /// 内容を保存する - 新規登録画面
+        /// </summary>
         public void SaveInNewMemo()
         {
+            TmpMemoX.EditDate = s_commonMethod.Now_yMd();
 
-
-
-            MessageBox.Show("保存しました", "保存", MessageBoxButton.OK, MessageBoxImage.Information);
+            SaveMemo();
+            
             GoStartMemo();
         }
 
         // 画面遷移時の処理
-
         public void GoNewMemoFromStartMemo()
         {
             // 作業用オブジェクトの作成
             TmpMemoX = new Memo
             {
                 Title = "",
-                Content = ""
+                Content = "",
+                IsMarked = false
             };
 
             GoNewMemo();
@@ -179,6 +183,22 @@ namespace C_WPF_APP
         {
             IsShownStartMemo = false;
             IsShownNewMemo = true;
+        }
+
+        // 保存
+        /// <summary>
+        /// MemoXをJsonファイルに書き出す
+        /// </summary>
+        public void SaveMemo()
+        {
+            MemoX = s_commonMethod.PassValue(TmpMemoX);
+
+            string filePath = StatData.MemoFolder + "\\" + MemoX.Title + ".json";
+
+            s_jsonMethod.WriteJson(filePath, MemoX);
+
+            MessageBox.Show("保存しました", "保存", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
         
     }

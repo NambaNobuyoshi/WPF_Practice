@@ -37,7 +37,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="重要フラグ"/>
-                <CheckBox IsChecked="True"/>
+                <CheckBox IsChecked="{Binding TmpMemoX.IsMarked}"/>
             </StackPanel>
         </StackPanel>
 

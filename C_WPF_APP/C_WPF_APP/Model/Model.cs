@@ -25,6 +25,9 @@ namespace C_WPF_APP.Model
         // ページの表示
         public bool IsShownMemoStart { get; set; }
         public bool IsShownMemoNew { get; set; }
+
+        // チェックボックス
+        public bool IsMarked { get; set; }
         
 
     }
@@ -97,17 +100,18 @@ namespace C_WPF_APP.Model
         /// <summary>
         /// 重要フラグ(重要:true、普通:false)
         /// </summary>
-        public bool IsImportant
+        public bool IsMarked
         {
             get => _flg;
             set
             {
                 _flg = value;
-                OnPropertyChanged(nameof(IsImportant));
+                OnPropertyChanged(nameof(IsMarked));
             }
         }
     }
 
+    [DataContract]
     /// <summary>
     /// プロパティ変更通知用クラス
     /// </summary>

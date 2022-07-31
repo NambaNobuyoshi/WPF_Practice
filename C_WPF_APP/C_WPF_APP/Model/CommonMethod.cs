@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
 
 namespace C_WPF_APP.Model
 {
@@ -40,6 +42,25 @@ namespace C_WPF_APP.Model
             }
             
         }
+
+        /// <summary>
+        /// Memo型オブジェクトの各項目を値渡しする
+        /// </summary>
+        /// <param name="memo"></param>
+        /// <returns></returns>
+        public Memo PassValue(Memo memo)
+        {
+            var tmp = new Memo
+            {
+                Id = memo.Id,
+                Title = String.IsNullOrEmpty(memo.Title) ? "" : memo.Title,
+                Content = String.IsNullOrEmpty(memo.Content) ? "" : memo.Content,
+                EditDate = String.IsNullOrEmpty(memo.EditDate) ? "" : memo.EditDate,
+                IsMarked = memo.IsMarked
+            };
+
+            return tmp;
+        }
     }
 
     class JsonMethod
@@ -54,12 +75,18 @@ namespace C_WPF_APP.Model
             try
             {
                 using (var fs = new FileStream(filePath, FileMode.Create))
+                using (var writer = JsonReaderWriterFactory.CreateJsonWriter(fs, Encoding.UTF8, true, true, "\t"))
                 {
-                    string json = JsonSerializer.Serialize(memo);
+                    var serializer = new DataContractJsonSerializer(typeof(Memo));
+                    serializer.WriteObject(writer, memo);
                 }
 
             }
-            catch
+            catch (SerializationException)
+            {
+
+            }
+            catch (IOException)
             {
 
             }
