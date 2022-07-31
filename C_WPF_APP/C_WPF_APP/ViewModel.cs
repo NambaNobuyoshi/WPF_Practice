@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using C_WPF_APP.Model;
 
 namespace C_WPF_APP
@@ -23,10 +25,43 @@ namespace C_WPF_APP
         private Command _clickGoNewMemo;
 
         private Command _clickGoStartMemo;
+        private Command _clickSaveInNewMemo;
 
         //--------------------------------------------
         // プロパティ
         //--------------------------------------------
+        // 作業対象
+        public Memo? MemoX
+        {
+            get => s_model.MemoX;
+            set
+            {
+                s_model.MemoX = value;
+                OnPropertyChanged(nameof(MemoX));
+            }
+        }
+        // 編集用
+        public Memo? TmpMemoX
+        {
+            get => s_model.TmpMemoX;
+            set
+            {
+                s_model.TmpMemoX = value;
+                OnPropertyChanged(nameof(TmpMemoX));
+            }
+        }
+
+
+        // 起動時画面バインディング
+        public ObservableCollection<Memo>? MemoList
+        {
+            get => s_model.MemoList;
+            set
+            {
+                s_model.MemoList = value;
+                OnPropertyChanged(nameof(MemoList));
+            }
+        }
 
         // ページの表示・非表示
         public bool IsShownStartMemo
@@ -74,15 +109,28 @@ namespace C_WPF_APP
             }
             set => _clickGoStartMemo = value;
         }
+
+        public Command ClickSaveInNewMemo
+        {
+            get
+            {
+                _clickSaveInNewMemo = new Command(SaveInNewMemo);
+                return _clickSaveInNewMemo;
+            }
+            set => _clickSaveInNewMemo = value;
+        }
         //--------------------------------------------
         // コンストラクタ
         //--------------------------------------------
+#pragma warning disable CS8618 // null 非許容のフィールドには、コンストラクターの終了時に null 以外の値が入っていなければなりません。Null 許容として宣言することをご検討ください。
         public ViewModel()
+#pragma warning restore CS8618 // null 非許容のフィールドには、コンストラクターの終了時に null 以外の値が入っていなければなりません。Null 許容として宣言することをご検討ください。
         {
             // フォルダ作成
             s_commonMethod.CreateDirectory(StatData.MemoFolder);
 
             // メモの全量を読み込む
+            MemoList = null;
 
 
             // 起動時画面を表示
@@ -93,10 +141,27 @@ namespace C_WPF_APP
         // メソッド
         //--------------------------------------------
 
+        // メモ新規登録画面
+        public void SaveInNewMemo()
+        {
+
+
+
+            MessageBox.Show("保存しました", "保存", MessageBoxButton.OK, MessageBoxImage.Information);
+            GoStartMemo();
+        }
+
         // 画面遷移時の処理
 
         public void GoNewMemoFromStartMemo()
         {
+            // 作業用オブジェクトの作成
+            TmpMemoX = new Memo
+            {
+                Title = "",
+                Content = ""
+            };
+
             GoNewMemo();
         }
         public void GoStartMemoFromNewMemo()

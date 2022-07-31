@@ -46,7 +46,47 @@
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeTitle}"/>
     </Style>
+
+    <Style x:Key="TextBlockBase" TargetType="TextBlock">
+        <Setter Property="Background" Value="{StaticResource BackgroundBase}"/>
+        
+    </Style>
     <!--TextBlock end  -->
+    <!--TextBox start-->
+    <Style x:Key="TextBoxBase" TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter Content="{TemplateBinding Text}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="TextBoxMemoContentBase" TargetType="TextBox" BasedOn="{StaticResource TextBoxBase}">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter Content="{TemplateBinding Text}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,5,0,0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TextBoxStartP" TargetType="TextBox" BasedOn="{StaticResource TextBoxMemoContentBase}">
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="IsEnabled" Value="False"/>
+    </Style>
+    <!--TextBox end  -->
     
     <!--角丸button start-->
     <sys:Double x:Key="ButtonHeightCornerRadius">40</sys:Double>

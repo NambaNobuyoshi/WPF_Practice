@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,11 +16,11 @@ namespace C_WPF_APP.Model
         // プロパティ
         //--------------------------------------------
         // 作業対象のオブジェクト
-        public Memo MemoX { get; set; }
+        public Memo? MemoX { get; set; }
         // 編集用のオブジェクト
-        public Memo TmpMemoX { get; set; }
+        public Memo? TmpMemoX { get; set; }
         // メモ起動時画面 バインディング用
-        public ObservableCollection<Memo> MemoList { get; set; }
+        public ObservableCollection<Memo>? MemoList { get; set; }
         
         // ページの表示
         public bool IsShownMemoStart { get; set; }
@@ -28,14 +29,19 @@ namespace C_WPF_APP.Model
 
     }
 
-    // メモ格納用クラス
+    /// <summary>
+    /// 個別メモクラス
+    /// </summary>
+    [DataContract]
     class Memo : NoticePrpChange
     { 
 
         private int _id;
-        private string _title;
-        private string _content;
+        private string? _title;
+        private string? _content;
+        private string? _editDate;
         private bool _flg;
+        [DataMember(Name ="ID", Order = 0, EmitDefaultValue =false)]
         /// <summary>
         /// メモID
         /// </summary>
@@ -48,10 +54,11 @@ namespace C_WPF_APP.Model
                 OnPropertyChanged(nameof(Id));
             }
         }
+        [DataMember(Name = "Title", Order = 1, EmitDefaultValue = false)]
         /// <summary>
         /// メモタイトル
         /// </summary>
-        public string Title
+        public string? Title
         {
             get => _title;
             set
@@ -60,10 +67,11 @@ namespace C_WPF_APP.Model
                 OnPropertyChanged(nameof(Title));
             }
         }
+        [DataMember(Name = "Content", Order = 2, EmitDefaultValue = false)]
         /// <summary>
         /// メモ内容
         /// </summary>
-        public string Content
+        public string? Content
         {
             get => _content;
             set
@@ -72,8 +80,22 @@ namespace C_WPF_APP.Model
                 OnPropertyChanged(nameof(Content)); ;
             }
         }
+        [DataMember(Name = "EditDate", Order = 3)]
         /// <summary>
-        /// 重要フラグ
+        /// 更新日(yyyyMMdd HH:mm:ss)
+        /// </summary>
+        public string? EditDate
+        {
+            get => _editDate;
+            set
+            {
+                _editDate = value;
+                OnPropertyChanged(nameof(EditDate));
+            }
+        }
+        [DataMember(Name = "IsImportant", Order = 4, EmitDefaultValue = false)]
+        /// <summary>
+        /// 重要フラグ(重要:true、普通:false)
         /// </summary>
         public bool IsImportant
         {
@@ -97,11 +119,16 @@ namespace C_WPF_APP.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
-
+    /// <summary>
+    /// Commandバインディング用クラス
+    /// </summary>
     class Command : ICommand
     {
         private Action _action;
+
+#pragma warning disable CS0067 // イベント～は使用されていません 
         public event EventHandler? CanExecuteChanged;
+#pragma warning restore CS0067 
 
         public Command(Action action)
         {

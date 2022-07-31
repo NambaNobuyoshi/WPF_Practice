@@ -22,8 +22,8 @@
     <Grid Style="{StaticResource GridBase}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="563*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
 
@@ -31,15 +31,22 @@
 
         <StackPanel Grid.Row="1" Margin="50,20,50,50">
             <TextBlock Text="メモタイトル"/>
-            <TextBox/>
-            <TextBlock Text="内容"/>
-            <TextBox/>
+            <TextBox Text="{Binding TmpMemoX.Title}" Style="{StaticResource TextBoxBase}" Margin="0,15,0,0"/>
+            <TextBlock Text="内容" Margin="0,15,0,0"/>
+            <TextBox Text="{Binding TmpMemoX.Content}" Style="{StaticResource TextBoxMemoContentBase}" Margin="0,15,0,0" TextWrapping="Wrap" Height="200"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="重要フラグ"/>
+                <CheckBox IsChecked="True"/>
+            </StackPanel>
         </StackPanel>
 
         <!--画面遷移用ボタン-->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Command="{Binding ClickGoStartMemo}" Style="{StaticResource ButtonCornerRadius}" Content="一覧に戻る" />
-            <Button Command="" Style="{StaticResource ButtonCornerRadius}" Content="保存" />
+            <Button Command="{Binding ClickGoStartMemo}" Content="一覧に戻る" 
+                    Style="{StaticResource ButtonCornerRadius}" Margin="30,0,0,0"/>
+            <Button Command="{Binding ClickSaveInNewMemo}" Content="保存" 
+                    Style="{StaticResource ButtonCornerRadius}" Margin="30,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

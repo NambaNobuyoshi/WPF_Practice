@@ -29,28 +29,29 @@
 
         <TextBlock Text="メモ一覧" Style="{StaticResource TextBlockTitle}" Margin="20,0,0,0"/>
 
-        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,10,0,0">
-            <StackPanel Orientation="Horizontal" Height="75">
-                <Button Command="{Binding ClickGoNewMemo}" Content="新規作成" 
-                        Style="{StaticResource ButtonCornerRadius}" Margin="400,0,0,0"></Button>
-            </StackPanel>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Margin="20,10,20,0">
+
+            <Button Command="{Binding ClickGoNewMemo}" Content="新規作成" 
+                        Style="{StaticResource ButtonCornerRadius}" HorizontalAlignment="Right" Margin="0,0,100,0"></Button>
+
             <!--メモ一覧-->
             <StackPanel Orientation="Horizontal" Height="400">
-                <ListBox Width="400"></ListBox>
                 <StackPanel>
-                    <TextBlock Text="内容をプレビュー"/>
-                    <Button Command="" Content="編集" 
-                        Style="{StaticResource ButtonCornerRadius}" Margin="0,100,0,0"/>
+                    <TextBlock Text="タイトル一覧" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ListBox ItemsSource="{Binding MemoList}" DisplayMemberPath="Title" SelectedItem="{Binding MemoX}"
+                          Height="350" Width="400" Padding="10"></ListBox>
                 </StackPanel>
-                
+
+                <StackPanel Width="300" Margin="50,0,0,0">
+                    <TextBlock Text="内容をプレビュー" Height="40"/>
+                    <TextBox Text="{Binding MemoX.Content}" Style="{StaticResource TextBoxStartP}" Height="300"/>
+
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
 
-        <!--画面遷移用ボタン-->
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Style="{StaticResource ButtonCornerRadius}" Content="Button" />
-        </StackPanel>
-        
+            <Button Command="" Content="編集" 
+                        Style="{StaticResource ButtonCornerRadius}" HorizontalAlignment="Right" Margin="0,0,100,0"/>
 
+        </StackPanel>
     </Grid>
 </UserControl>

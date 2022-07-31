@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace C_WPF_APP.Model
 {
@@ -14,7 +16,7 @@ namespace C_WPF_APP.Model
     {
         // フォルダ類
 #pragma warning disable CS8601 // Null 参照代入の可能性があります。
-        private static string _basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))));
+        private static string _basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)))));
 #pragma warning restore CS8601 // Null 参照代入の可能性があります。
         public static string MemoFolder = _basePath + "\\memo";
         public static string LogFolder = _basePath + "\\log";
