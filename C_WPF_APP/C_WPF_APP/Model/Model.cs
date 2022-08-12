@@ -10,6 +10,9 @@ using System.Windows.Input;
 
 namespace C_WPF_APP.Model
 {
+    /// <summary>
+    /// バインディング元となる情報を格納するクラス
+    /// </summary>
     internal class Model
     {
         //--------------------------------------------
@@ -21,96 +24,16 @@ namespace C_WPF_APP.Model
         public Memo? TmpMemoX { get; set; }
         // メモ起動時画面 バインディング用
         public ObservableCollection<Memo>? MemoList { get; set; }
+        public AllMemoInfo AllMemo { get; set; }
         
         // ページの表示
         public bool IsShownMemoStart { get; set; }
         public bool IsShownMemoNew { get; set; }
-
-        // チェックボックス
-        public bool IsMarked { get; set; }
         
 
     }
 
-    /// <summary>
-    /// 個別メモクラス
-    /// </summary>
-    [DataContract]
-    class Memo : NoticePrpChange
-    { 
-
-        private int _id;
-        private string? _title;
-        private string? _content;
-        private string? _editDate;
-        private bool _flg;
-        [DataMember(Name ="ID", Order = 0, EmitDefaultValue =false)]
-        /// <summary>
-        /// メモID
-        /// </summary>
-        public int Id
-        {
-            get => _id;
-            set
-            {
-                _id = value;
-                OnPropertyChanged(nameof(Id));
-            }
-        }
-        [DataMember(Name = "Title", Order = 1, EmitDefaultValue = false)]
-        /// <summary>
-        /// メモタイトル
-        /// </summary>
-        public string? Title
-        {
-            get => _title;
-            set
-            {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
-        [DataMember(Name = "Content", Order = 2, EmitDefaultValue = false)]
-        /// <summary>
-        /// メモ内容
-        /// </summary>
-        public string? Content
-        {
-            get => _content;
-            set
-            {
-                _content = value;
-                OnPropertyChanged(nameof(Content)); ;
-            }
-        }
-        [DataMember(Name = "EditDate", Order = 3)]
-        /// <summary>
-        /// 更新日(yyyyMMdd HH:mm:ss)
-        /// </summary>
-        public string? EditDate
-        {
-            get => _editDate;
-            set
-            {
-                _editDate = value;
-                OnPropertyChanged(nameof(EditDate));
-            }
-        }
-        [DataMember(Name = "IsImportant", Order = 4, EmitDefaultValue = false)]
-        /// <summary>
-        /// 重要フラグ(重要:true、普通:false)
-        /// </summary>
-        public bool IsMarked
-        {
-            get => _flg;
-            set
-            {
-                _flg = value;
-                OnPropertyChanged(nameof(IsMarked));
-            }
-        }
-    }
-
+    // MVVMモデルにおける定型
     [DataContract]
     /// <summary>
     /// プロパティ変更通知用クラス

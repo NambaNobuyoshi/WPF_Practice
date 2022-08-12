@@ -47,6 +47,7 @@
                         <local:MemoStart/>
                     </TabItem>
                     <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownNewMemo}">
+                        <!--メモアプリ 登録画面-->
                         <local:MemoNew/>
                     </TabItem>
                 </TabControl>

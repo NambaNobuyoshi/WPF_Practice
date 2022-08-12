@@ -20,7 +20,6 @@ namespace C_WPF_APP
         // 他クラスアクセス用
         private static readonly Model.Model s_model = new();
         private static readonly CommonMethod s_commonMethod = new();
-        private static readonly JsonMethod s_jsonMethod = new();
 
         // イベント変数
         private Command _clickGoNewMemo;
@@ -42,27 +41,28 @@ namespace C_WPF_APP
             }
         }
         // 編集用
-        public Memo? TmpMemoX
+        public Memo? TempMemoX
         {
             get => s_model.TmpMemoX;
             set
             {
                 s_model.TmpMemoX = value;
-                OnPropertyChanged(nameof(TmpMemoX));
+                OnPropertyChanged(nameof(TempMemoX));
+            }
+        }
+
+        public AllMemoInfo AllMemo
+        {
+            get => s_model.AllMemo;
+            set
+            {
+                s_model.AllMemo = value;
+                OnPropertyChanged(nameof(AllMemo));
             }
         }
 
 
         // 起動時画面バインディング
-        public ObservableCollection<Memo>? MemoList
-        {
-            get => s_model.MemoList;
-            set
-            {
-                s_model.MemoList = value;
-                OnPropertyChanged(nameof(MemoList));
-            }
-        }
 
         // ページの表示・非表示
         public bool IsShownStartMemo
@@ -85,6 +85,7 @@ namespace C_WPF_APP
         }
 
         // クリックイベント
+        // 起動時画面
         /// <summary>
         /// 新規作成ボタン - 起動時画面
         /// </summary>
@@ -97,7 +98,7 @@ namespace C_WPF_APP
             }
             set => _clickGoNewMemo = value;
         }
-
+        // 登録画面
         /// <summary>
         /// 一覧へ戻るボタン - 登録画面
         /// </summary>
@@ -110,7 +111,9 @@ namespace C_WPF_APP
             }
             set => _clickGoStartMemo = value;
         }
-
+        /// <summary>
+        /// 保存 - 登録画面
+        /// </summary>
         public Command ClickSaveInNewMemo
         {
             get
@@ -123,16 +126,18 @@ namespace C_WPF_APP
         //--------------------------------------------
         // コンストラクタ
         //--------------------------------------------
-#pragma warning disable CS8618 // null 非許容のフィールドには、コンストラクターの終了時に null 以外の値が入っていなければなりません。Null 許容として宣言することをご検討ください。
         public ViewModel()
-#pragma warning restore CS8618 // null 非許容のフィールドには、コンストラクターの終了時に null 以外の値が入っていなければなりません。Null 許容として宣言することをご検討ください。
         {
             // フォルダ作成
             s_commonMethod.CreateDirectory(StatData.MemoFolder);
 
-            // メモの全量を読み込む
-            MemoList = null;
+            // ファイル作成
+            s_commonMethod.CreateFile(StatData.AllMemoInfoFile);
 
+            // オブジェクトの初期化
+            MemoX = new Memo();
+            TempMemoX = new Memo();
+            AllMemo = new AllMemoInfo();
 
             // 起動時画面を表示
             GoStartMemo();
@@ -148,28 +153,47 @@ namespace C_WPF_APP
         /// </summary>
         public void SaveInNewMemo()
         {
-            TmpMemoX.EditDate = s_commonMethod.Now_yMd();
+            // 新規IDを割り振る
+            TempMemoX.Id = AllMemo.AllMemoList.Count + 1;
+            TempMemoX.EditDate = s_commonMethod.Now_yMd();
 
             SaveMemo();
+
+            // 保存したメモをAllMemoListに追加
+            AllMemo.AllMemoList.Add(TempMemoX.PassValue());
             
             GoStartMemo();
         }
 
         // 画面遷移時の処理
+        /// <summary>
+        /// 起動時画面→登録画面
+        /// </summary>
         public void GoNewMemoFromStartMemo()
         {
             // 作業用オブジェクトの作成
-            TmpMemoX = new Memo
-            {
-                Title = "",
-                Content = "",
-                IsMarked = false
-            };
+            TempMemoX = new Memo();
 
             GoNewMemo();
         }
+        /// <summary>
+        /// 登録画面→起動時画面
+        /// </summary>
         public void GoStartMemoFromNewMemo()
         {
+            // 内容が記述されている場合
+            if (!string.IsNullOrEmpty(TempMemoX.Title) || !string.IsNullOrEmpty(TempMemoX.Content) || TempMemoX.IsMarked)
+            {
+                MessageBoxResult Result = MessageBox.Show("内容を破棄しますか?", "確認", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (Result == MessageBoxResult.Cancel)
+                {
+                    return;
+                }
+            }
+
+            // TempMemoXの内容を破棄
+            TempMemoX = new Memo();
+
             GoStartMemo();
         }
 
@@ -191,11 +215,11 @@ namespace C_WPF_APP
         /// </summary>
         public void SaveMemo()
         {
-            MemoX = s_commonMethod.PassValue(TmpMemoX);
+            MemoX = TempMemoX.PassValue();
 
-            string filePath = StatData.MemoFolder + "\\" + MemoX.Title + ".json";
+            string filePath = StatData.MemoFolder + "\\" + MemoX.Id + ".json";
 
-            s_jsonMethod.WriteJson(filePath, MemoX);
+            MemoX.WriteInJson(filePath);
 
             MessageBox.Show("保存しました", "保存", MessageBoxButton.OK, MessageBoxImage.Information);
 

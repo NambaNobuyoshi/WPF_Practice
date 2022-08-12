@@ -38,7 +38,7 @@
             <StackPanel Orientation="Horizontal" Height="400">
                 <StackPanel>
                     <TextBlock Text="タイトル一覧" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <ListBox ItemsSource="{Binding MemoList}" DisplayMemberPath="Title" SelectedItem="{Binding MemoX}"
+                    <ListBox ItemsSource="{Binding AllMemo.AllMemoList}" DisplayMemberPath="Title" SelectedItem="{Binding MemoX}"
                           Height="350" Width="400" Padding="10"></ListBox>
                 </StackPanel>
 

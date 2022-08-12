@@ -31,13 +31,13 @@
 
         <StackPanel Grid.Row="1" Margin="50,20,50,50">
             <TextBlock Text="メモタイトル"/>
-            <TextBox Text="{Binding TmpMemoX.Title}" Style="{StaticResource TextBoxBase}" Margin="0,15,0,0"/>
+            <TextBox Text="{Binding TempMemoX.Title}" Style="{StaticResource TextBoxBase}" Margin="0,15,0,0"/>
             <TextBlock Text="内容" Margin="0,15,0,0"/>
-            <TextBox Text="{Binding TmpMemoX.Content}" Style="{StaticResource TextBoxMemoContentBase}" Margin="0,15,0,0" TextWrapping="Wrap" Height="200"/>
+            <TextBox Text="{Binding TempMemoX.Content}" Style="{StaticResource TextBoxMemoContentBase}" Margin="0,15,0,0" TextWrapping="Wrap" Height="200"/>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <TextBlock Text="重要フラグ"/>
-                <CheckBox IsChecked="{Binding TmpMemoX.IsMarked}"/>
+                <CheckBox IsChecked="{Binding TempMemoX.IsMarked}"/>
             </StackPanel>
         </StackPanel>
 

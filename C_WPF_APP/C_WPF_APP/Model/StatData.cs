@@ -15,11 +15,31 @@ namespace C_WPF_APP.Model
     public class StatData
     {
         // フォルダ類
-#pragma warning disable CS8601 // Null 参照代入の可能性があります。
         private static string _basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)))));
-#pragma warning restore CS8601 // Null 参照代入の可能性があります。
         public static string MemoFolder = _basePath + "\\memo";
         public static string LogFolder = _basePath + "\\log";
+
+        // ファイル類
+        public static string AllMemoInfoFile = MemoFolder + "\\allmemo.json";
+
+        // 固定メソッド
+        /// <summary>
+        /// アプリケーション終了時のメソッド
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void finishApplication(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var Result = MessageBox.Show("アプリケーションを終了しますか", "確認", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (Result == MessageBoxResult.OK)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
 
     }
 }

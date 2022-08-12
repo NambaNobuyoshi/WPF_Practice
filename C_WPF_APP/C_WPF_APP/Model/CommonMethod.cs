@@ -13,12 +13,17 @@ namespace C_WPF_APP.Model
 {
     internal class CommonMethod
     {
+        /// <summary>
+        /// 現在時刻を年月日の文字列で返す
+        /// </summary>
+        /// <returns></returns>
         public string Now_yMd()
         {
             DateTime dt = DateTime.Now;
             return dt.ToString("yyyyMMdd");
         }
 
+        // ファイル操作
         /// <summary>
         /// 存在しないディレクトリであった場合、作成する
         /// </summary>
@@ -42,53 +47,19 @@ namespace C_WPF_APP.Model
             }
             
         }
-
         /// <summary>
-        /// Memo型オブジェクトの各項目を値渡しする
+        /// 存在しないファイルであった場合、作成する
         /// </summary>
-        /// <param name="memo"></param>
-        /// <returns></returns>
-        public Memo PassValue(Memo memo)
+        /// <param name="file"></param>
+        public void CreateFile(string file)
         {
-            var tmp = new Memo
+            if (File.Exists(file))
             {
-                Id = memo.Id,
-                Title = String.IsNullOrEmpty(memo.Title) ? "" : memo.Title,
-                Content = String.IsNullOrEmpty(memo.Content) ? "" : memo.Content,
-                EditDate = String.IsNullOrEmpty(memo.EditDate) ? "" : memo.EditDate,
-                IsMarked = memo.IsMarked
-            };
-
-            return tmp;
-        }
-    }
-
-    class JsonMethod
-    {
-        /// <summary>
-        /// MemoクラスのオブジェクトをJsonファイルに書き込む
-        /// </summary>
-        /// <param name="filePath">作成するファイルのフルパス</param>
-        /// <param name="memo">対象Memoオブジェクト</param>
-        public void WriteJson(string filePath, Memo memo)
-        {
-            try
-            {
-                using (var fs = new FileStream(filePath, FileMode.Create))
-                using (var writer = JsonReaderWriterFactory.CreateJsonWriter(fs, Encoding.UTF8, true, true, "\t"))
-                {
-                    var serializer = new DataContractJsonSerializer(typeof(Memo));
-                    serializer.WriteObject(writer, memo);
-                }
-
+                return;
             }
-            catch (SerializationException)
+            else
             {
-
-            }
-            catch (IOException)
-            {
-
+                using var fs = new FileStream(file, FileMode.CreateNew);
             }
         }
     }

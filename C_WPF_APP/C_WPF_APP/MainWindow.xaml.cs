@@ -1,4 +1,5 @@
-﻿using System;
+﻿using C_WPF_APP.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +33,7 @@ namespace C_WPF_APP
         /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var Result = MessageBox.Show("アプリケーションを終了しますか", "確認", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            if (Result == MessageBoxResult.OK)
-            {
-                Environment.Exit(0);
-            }
+            StatData.finishApplication(sender, e);
         }
     }
 }
