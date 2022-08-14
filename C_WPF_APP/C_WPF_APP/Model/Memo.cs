@@ -6,8 +6,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.Serialization;
 
 namespace C_WPF_APP.Model
 {
@@ -178,15 +180,43 @@ namespace C_WPF_APP.Model
         public AllMemoInfo()
         {
             this.EditDate = "";
-            this.AllMemoList = GetAllMemoList();
+            this.AllMemoList = new ObservableCollection<Memo> { };
         }
 
-        public ObservableCollection<Memo> GetAllMemoList()
+        /// <summary>
+        /// メモ情報を格納したインスタンスを返す
+        /// </summary>
+        /// <returns></returns>
+        public static AllMemoInfo GetAllMemoList()
         {
+
+            var MemoInfo = new AllMemoInfo();
             var allMemoList = new ObservableCollection<Memo>();
 
+            if (!File.Exists(StatData.AllMemoInfoFile)) return MemoInfo;
 
-            return allMemoList;
+
+            try
+            {
+                using (var reader = new FileStream(StatData.AllMemoInfoFile, FileMode.Open))
+                {
+                    var serializer = new DataContractJsonSerializer(typeof(AllMemoInfo));
+
+                    MemoInfo = (AllMemoInfo)serializer.ReadObject(reader);
+                }
+            }
+            catch (SerializationException)
+            {
+                return new AllMemoInfo();
+            }
+            catch
+            {
+                throw new IOException();
+            }
+
+            if (MemoInfo == null) return new AllMemoInfo();
+
+            return MemoInfo;
         }
 
 

@@ -49,7 +49,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <Button Command="" Content="編集" 
+            <Button Command="{Binding ClickGoDetailMemo}" Content="編集" 
                         Style="{StaticResource ButtonCornerRadius}" HorizontalAlignment="Right" Margin="0,0,100,0"/>
 
         </StackPanel>

@@ -29,6 +29,7 @@ namespace C_WPF_APP.Model
         // ページの表示
         public bool IsShownMemoStart { get; set; }
         public bool IsShownMemoNew { get; set; }
+        public bool IsShownMemoDetail { get; set; }
         
 
     }

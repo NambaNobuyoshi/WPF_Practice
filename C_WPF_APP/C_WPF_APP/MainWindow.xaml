@@ -50,6 +50,10 @@
                         <!--メモアプリ 登録画面-->
                         <local:MemoNew/>
                     </TabItem>
+                    <TabItem Style="{StaticResource TabItemMain}" IsSelected="{Binding IsShownMemoDetail}">
+                        <!--メモアプリ 詳細画面-->
+                        <local:MemoDetail/>
+                    </TabItem>
                 </TabControl>
             </Grid>
         </DockPanel>
