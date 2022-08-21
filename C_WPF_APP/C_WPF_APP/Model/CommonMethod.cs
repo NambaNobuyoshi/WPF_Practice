@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
+using System.Windows;
 
 namespace C_WPF_APP.Model
 {
@@ -61,6 +62,37 @@ namespace C_WPF_APP.Model
             {
                 using var fs = new FileStream(file, FileMode.CreateNew);
             }
+        }
+        public void DeleteFile(string filePath)
+        {
+            try
+            {
+                FileInfo fileInfo = new FileInfo(filePath);
+                fileInfo.Delete();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 文字列型の比較を行う 差異があればtrue
+        /// </summary>
+        /// <param name="before"></param>
+        /// <param name="after"></param>
+        /// <returns></returns>
+        public bool IsUpdated(string before, string after)
+        {
+            // 変更前が空の場合
+            if (string.IsNullOrEmpty(before))
+            {
+                return !string.IsNullOrEmpty(after);
+            }
+
+            // 変更前が空以外の場合
+            return !before.Equals(after);
+
         }
     }
 }

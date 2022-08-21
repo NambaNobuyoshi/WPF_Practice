@@ -35,19 +35,19 @@
             <TextBlock Text="内容" Margin="0,15,0,0"/>
             <TextBox Text="{Binding TempMemoX.Content}" Style="{StaticResource TextBoxMemoContentBase}" Margin="0,15,0,0" TextWrapping="Wrap" Height="200"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+            <!--<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <TextBlock Text="重要フラグ"/>
                 <CheckBox IsChecked="{Binding TempMemoX.IsMarked}"/>
-            </StackPanel>
+            </StackPanel>-->
         </StackPanel>
 
         <!--画面遷移用ボタン-->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Command="" Content="一覧に戻る" 
+            <Button Command="{Binding ClickGoStartMemoFromDetailMemo}" Content="一覧に戻る" 
                     Style="{StaticResource ButtonCornerRadius}" Margin="30,0,0,0"/>
-            <Button Command="" Content="保存" 
+            <Button Command="{Binding ClickSaveMemoInDetailMemo}" Content="保存" 
                     Style="{StaticResource ButtonCornerRadius}" Margin="30,0,0,0"/>
-            <Button Command="" Content="削除*" 
+            <Button Command="{Binding ClickDeleteMemoInDetailMemo}" Content="削除*" 
                     Style="{StaticResource ButtonCornerRadius}" Margin="150,0,0,0" Background="Red"/>
         </StackPanel>
     </Grid>

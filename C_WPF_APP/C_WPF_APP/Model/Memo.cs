@@ -19,6 +19,7 @@ namespace C_WPF_APP.Model
     [DataContract]
     class Memo : NoticePrpChange
     {
+        private CommonMethod commonMethod;
 
         private int _id;
         private string? _title;
@@ -122,6 +123,24 @@ namespace C_WPF_APP.Model
             };
 
             return memo;
+        }
+        /// <summary>
+        /// 更新されていたらtrue
+        /// </summary>
+        /// <param name="after"></param>
+        /// <returns></returns>
+        public bool IsUpdated(Memo after)
+        {
+            commonMethod = new();
+
+            if (this.Id != after.Id) return true;
+            if (commonMethod.IsUpdated(this.Title, after.Title)) return true;
+            if (commonMethod.IsUpdated(this.Content, after.Content)) return true;
+            if (commonMethod.IsUpdated(this.EditDate, after.EditDate)) return true;
+            if (this.IsMarked != after.IsMarked) return true;
+
+            return false;
+
         }
 
         /// <summary>
