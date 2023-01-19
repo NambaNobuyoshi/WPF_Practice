@@ -15,9 +15,6 @@ namespace C_WPF_APP.Model
     /// </summary>
     internal class Model
     {
-        //--------------------------------------------
-        // プロパティ
-        //--------------------------------------------
         // 作業対象のオブジェクト
         public Memo? MemoX { get; set; }
         // 編集用のオブジェクト
@@ -31,7 +28,7 @@ namespace C_WPF_APP.Model
         public bool IsShownMemoNew { get; set; }
         public bool IsShownMemoDetail { get; set; }
         
-
+        
     }
 
     // MVVMモデルにおける定型

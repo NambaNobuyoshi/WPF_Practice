@@ -52,6 +52,7 @@
         
     </Style>
     <!--TextBlock end  -->
+    
     <!--TextBox start-->
     <Style x:Key="TextBoxBase" TargetType="TextBox">
         <Setter Property="BorderBrush" Value="Black"/>
@@ -61,8 +62,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
-                            Background="{TemplateBinding Background}">
-                        <ContentPresenter Content="{TemplateBinding Text}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                            Background="{TemplateBinding Background}" Padding="15,0,0,0">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -74,8 +75,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
-                            Background="{TemplateBinding Background}">
-                        <ContentPresenter Content="{TemplateBinding Text}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,5,0,0"/>
+                            Background="{TemplateBinding Background}" Padding="15,0,0,0">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -102,7 +103,8 @@
     </Style>
     <Style x:Key="ButtonCornerRadius" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="Background" Value="Yellow"/>
+        <Setter Property="Background
+                " Value="Yellow"/>
         <Setter Property="BorderBrush" Value="Aqua"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Height" Value="{StaticResource ButtonHeightCornerRadius}"/>
